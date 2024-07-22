@@ -1,0 +1,20 @@
+
+APRENDER LOS PPOS BASICO DE HILAR UN PROCESO. CREAR HILOS Y USAR MUTEX
+
+- 1 o mas filos en una mesa, en el centro un bol de comida
+- comen, piensan, duermen
+- si hacen una cosa, las demas no pueden
+- hay tantos tenedores como filos
+- deben usar los dos tenedores
+- cuando un filo termina de comer, deja tenedores y duerme
+- cuando despierta, piensa
+- todos los filos
+
+- number_of_philosophers (num de filos y de tenedores)
+- time_to_die (milisegundos)
+- time_to_eat (miliseg)
+- time_to_sleep (miliseg)
+- [number_of_times_each_philosopher_must_eat]
+
+- cada filo tiene asignado un numero del 1 al number of filos
+- el filo 1 y el filo number of filos se sientan al lado
