@@ -3,55 +3,41 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ctacconi <ctacconi@student.42barcelon      +#+  +:+       +#+         #
+#    By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/22 18:24:08 by ctacconi          #+#    #+#              #
-#    Updated: 2024/07/22 18:54:58 by ctacconi         ###   ########.fr        #
+#    Updated: 2024/07/23 16:34:53 by ctacconi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#include "philo.h"
-
 NAME = philo
 
-SRC = src/main.c
+SRC = src/main.c src/utils.c src/philo.c
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -pthread -g
 
 HEAD = inc/philo.h
 
-LIBFT = libft/libft.a
-
 OBJ = $(SRC:.c=.o)
-
-DEPS = $(SRC:.c=d)
 
 RM = rm -f
 
 %o: %.c Makefile $(HEAD)
-	$(CC) $(FLAGS) -MMD -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
-make_libs:
-	make -C libft
-
-all: make_libs $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 
 clean:
-	make clean -C libft
-	$(RM) $(OBJ) $(DEPS)
+	$(RM) $(OBJ)
 
 fclean: clean
-	make fclean -C libft
 	$(RM) $(NAME)
 
 re: fclean all
 
--include $(DEPS)
-
-.PHONY: all clean fclean re libs
-
+.PHONY: all clean fclean re
