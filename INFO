@@ -8,7 +8,7 @@ APRENDER LOS PPOS BASICO DE HILAR UN PROCESO. CREAR HILOS Y USAR MUTEX
 - deben usar los dos tenedores
 - cuando un filo termina de comer, deja tenedores y duerme
 - cuando despierta, piensa
-- todos los filos
+- todos los filos necesitan comer y nunca morir
 
 - number_of_philosophers (num de filos y de tenedores)
 - time_to_die (milisegundos)
@@ -18,3 +18,9 @@ APRENDER LOS PPOS BASICO DE HILAR UN PROCESO. CREAR HILOS Y USAR MUTEX
 
 - cada filo tiene asignado un numero del 1 al number of filos
 - el filo 1 y el filo number of filos se sientan al lado
+
+memset, printf, malloc, free, write,
+usleep, gettimeofday, pthread_create,
+pthread_detach, pthread_join, pthread_mutex_init,
+pthread_mutex_destroy, pthread_mutex_lock,
+pthread_mutex_unlock

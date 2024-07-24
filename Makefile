@@ -6,13 +6,13 @@
 #    By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/22 18:24:08 by ctacconi          #+#    #+#              #
-#    Updated: 2024/07/23 16:34:53 by ctacconi         ###   ########.fr        #
+#    Updated: 2024/07/24 16:50:59 by ctacconi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC = src/main.c src/utils.c src/philo.c
+SRC = src/main.c src/check_input.c src/philo.c
 
 CC = gcc
 
