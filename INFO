@@ -20,8 +20,21 @@ APRENDER LOS PPOS BASICO DE HILAR UN PROCESO. CREAR HILOS Y USAR MUTEX
 - el filo 1 y el filo number of filos se sientan al lado
 
 memset, printf, malloc, free, write,
-usleep, gettimeofday, pthread_create,
-pthread_detach, pthread_join, pthread_mutex_init,
-pthread_mutex_destroy, pthread_mutex_lock,
+usleep, gettimeofday, 
+pthread_create,
+pthread_detach, 
+pthread_join, 
+pthread_mutex_init,
+pthread_mutex_destroy, 
+pthread_mutex_lock,
 pthread_mutex_unlock
 
+pthread_mutex_lock
+- bloquea el mutex, solo el hilo que ha adquirido el bloqueo puede acceder al recurso compartido
+
+pthread_mutex_unlonk
+- desbloquea el mutex, permite que otros hilos puedan adquirir el bloqueo 
+
+Para que no haya conflicto entre filosofos, primero comer impares y pares despues
+
+No puedo usar exit

@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 17:31:38 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/24 21:23:21 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:08:01 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@ void    init_philos(t_program *table, char **argv)
     int i;
 
     i = 0;
-    table->philos = malloc(sizeof(t_philo) * table->number_of_philosophers);    
+    table->philos = malloc(sizeof(t_philo) * table->number_of_philosophers);
+    if (!table->philos)
+    {
+        printf("%s", INIT_ERROR);
+        exit(EXIT_FAILURE);
+    }
     while (i < table->number_of_philosophers)
     {
         table->philos[i].id = i + 1;
@@ -40,22 +45,14 @@ void    init_philos(t_program *table, char **argv)
 
 void    init(t_program *table, int argc, char **argv)
 {
-	table->number_of_philosophers = my_atoi(argv[1]);
-    table->dead_flag = 0;
+	table->dead_flag = 0;
+    table->number_of_philosophers = my_atoi(argv[1]);
     if (argv[5])
 	    table->num_of_times_each_philo_must_eat = my_atoi(argv[5]);
     else
-        table->num_of_times_each_philo_must_eat = -1; 
+        table->num_of_times_each_philo_must_eat = -1;
     pthread_mutex_init(&(table->dead_lock), NULL);
     pthread_mutex_init(&(table->write_lock), NULL);
     pthread_mutex_init(&(table->meal_lock), NULL);
-
     init_philos(table, argv);
-    
-      
-	printf("num filos: %i\n", table->number_of_philosophers);
-    printf("time en morir: %i\n", table->time_to_die);
-    printf("time en comer: %i\n", table->time_to_eat);
-    printf("time en dormir: %i\n", table->time_to_sleep);	
-    printf("cada filo tiene que comer: %i\n", table->num_of_times_each_philo_must_eat);	
 }

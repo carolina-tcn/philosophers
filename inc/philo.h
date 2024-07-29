@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:23:31 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/24 21:02:57 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:08:48 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 [number_of_times_each_philo_must_eat]\n"
 # define INVALID_INPUT "Invalid input:\n./philo '<200'\t'>60'\t'>60'\t'>60'\t \
 '>60'\t'>1'\n"
+# define INIT_ERROR "Error initializing data\n"
 
 typedef struct s_philo
 {
