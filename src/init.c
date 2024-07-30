@@ -6,13 +6,13 @@
 /*   By: carolinatacconis <carolinatacconis@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 17:31:38 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/30 13:21:47 by carolinatac      ###   ########.fr       */
+/*   Updated: 2024/07/30 19:05:10 by carolinatac      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void    philos_init(t_program *table, char **argv)
+void    philos_init(t_table *table, char **argv)
 {
     int i;
 
@@ -39,7 +39,7 @@ void    philos_init(t_program *table, char **argv)
     }
 }
 
-void    table_init(t_program *table, char **argv)
+void    table_init(t_table *table, char **argv)
 {
     table->dead_flag = 0;
     table->number_of_philosophers = my_atoi(argv[1]);
@@ -58,7 +58,7 @@ void    table_init(t_program *table, char **argv)
     pthread_mutex_init(&(table->meal_lock), NULL);
 }
 
-void    init(t_program *table, char **argv)
+void    init(t_table *table, char **argv)
 {
     table_init(&table, argv);
     philos_init(&table, argv);

@@ -6,7 +6,7 @@
 /*   By: carolinatacconis <carolinatacconis@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:33:16 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/30 17:10:04 by carolinatac      ###   ########.fr       */
+/*   Updated: 2024/07/30 19:04:14 by carolinatac      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_program	table;
+	t_table	table;
 
 	if (argc < 5 || argc > 6)
 		return (error_message(INVALID_NUM_INPUT, EXIT_FAILURE));

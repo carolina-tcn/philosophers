@@ -6,7 +6,7 @@
 /*   By: carolinatacconis <carolinatacconis@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:53:25 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/30 17:22:42 by carolinatac      ###   ########.fr       */
+/*   Updated: 2024/07/30 19:06:37 by carolinatac      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,20 @@
 
 void    philo_eating(t_philo *philo)
 {
+	printf("has taken a fork");
+	printf("is eating");
     return ;
 }
 
 void    philo_spleeping(t_philo *philo)
 {
+	printf("is sleeping");
     return ;
 }
 
 void    philo_thinking(t_philo *philo)
 {
+	printf("is thinking");
     return ;
 }
 int	check_if_alive(t_philo *philo)
@@ -53,5 +57,5 @@ void	*philo_routine(void *param)
 	philo_spleeping(philo);
     philo_thinking(philo);
     }
-    return (param);
+    return (NULL);
 }
