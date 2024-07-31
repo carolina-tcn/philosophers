@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolinatacconis <carolinatacconis@stud    +#+  +:+       +#+        */
+/*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:33:16 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/30 19:04:14 by carolinatac      ###   ########.fr       */
+/*   Updated: 2024/07/31 14:13:23 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,17 @@
 
 //Function that calculate time in miliseconds
 //La función get_time_ms en C tiene como objetivo obtener el tiempo actual en milisegundos desde la época (Epoch), que es el punto de referencia temporal estándar en Unix (1 de enero de 1970, 00:00:00 UTC).
-/*long	get_time_ms(void)
+
+//Function that obtains the milliseconds elapsed since 1970-01-01
+long	get_time_ms(void)
 {
 	struct timeval	time_value;
 
 	gettimeofday(&time_value, NULL);
 	return ((time_value.tv_sec * 1000L) + (time_value.tv_usec / 1000L));
-}*)
+}
 
-/*void	write()
-{
-	pthread_mutex_lock(write_lock);
-	//escribir  el mensaje
-	pthread_mutex_unlock(write_lock);	
-}*/
+
 
 int	main(int argc, char **argv)
 {

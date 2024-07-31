@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolinatacconis <carolinatacconis@stud    +#+  +:+       +#+        */
+/*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:11:08 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/30 19:05:54 by carolinatac      ###   ########.fr       */
+/*   Updated: 2024/07/31 13:52:37 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,22 @@ void	*monitoring(void *param)
 int	create_threads(t_table *table)
 {
 	int			i;
-	pthread_t	controller;
+	//pthread_t	controller;
 
 	i = 0;
-	if (pthread_create(&controller, NULL, &monitoring, table->philos) != 0)
-		/* code */
+	//BLOQUEO UN MUTEX START_LOCK;
+	pthread_mutex_lock(&table->start_lock);
 	while (i < table->number_of_philosophers)
 	{
-		if (pthread_create(&(table->philos[i]).thread, NULL, &philo_routine, (void *)&(table->philos[i])) != 0)
-            //return (1), gestionar
+		//TODO PROTEGER EL PTHREAD_CREATE. PUEDE DEVOLVER -1 SI ERROR
+		pthread_create(&(table->philos[i]).thread, NULL, &philo_routine, (void *)&(table->philos[i]));
 		i++;
 	}
-	if (pthread_join(controller, NULL) != 0)
-		//gestionar
+	//AQUI EMPIEZA EL START TIME
+	table->start_time = get_time_ms();
+	//DESBLOQUEAMOS EL MUTEX DE INICIO
+	pthread_mutex_unlock(&table->start_lock);
+	//monitoring();
 	i = 0;
 	while (i < table->number_of_philosophers)
 	{

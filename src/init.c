@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolinatacconis <carolinatacconis@stud    +#+  +:+       +#+        */
+/*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 17:31:38 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/30 19:05:10 by carolinatac      ###   ########.fr       */
+/*   Updated: 2024/07/31 14:14:31 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,16 @@ void    philos_init(t_table *table, char **argv)
 	    table->philos[i].time_to_eat = my_atoi(argv[3]);
         table->philos[i].time_to_sleep = my_atoi(argv[4]);
         table->philos[i].dead = &(table->dead_flag);
-        table->philos[i].table = table;
+        table->philos[i].start_time = &(table->start_time);
+        //table->philos[i].table = table;
         pthread_mutex_init(&(table->philos[i].r_fork), NULL);
         if (i == 0)
             table->philos[i].l_fork = &(table->philos[table->number_of_philosophers - 1].r_fork);
         else
             table->philos[i].l_fork = &(table->philos[i - 1].r_fork);
-        //table->philos[i].write_lock = &(table->write_lock);
-        // table->philos[i].dead_lock = &(table->dead_lock);
-        // table->philos[i].meal_lock = &(table->meal_lock);
+        table->philos[i].write_lock = &(table->write_lock);
+        table->philos[i].dead_lock = &(table->dead_lock);
+        table->philos[i].start_lock = &(table->start_lock);
         i++;
     }
 }
@@ -55,11 +56,11 @@ void    table_init(t_table *table, char **argv)
         table->num_of_times_each_philo_must_eat = -1;
     pthread_mutex_init(&(table->dead_lock), NULL);
     pthread_mutex_init(&(table->write_lock), NULL);
-    pthread_mutex_init(&(table->meal_lock), NULL);
+    pthread_mutex_init(&(table->start_lock), NULL);
 }
 
 void    init(t_table *table, char **argv)
 {
-    table_init(&table, argv);
-    philos_init(&table, argv);
+    table_init(table, argv);
+    philos_init(table, argv);
 }
