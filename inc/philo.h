@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:23:31 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/31 16:51:29 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:09:19 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,5 @@ void    philo_sleeping(t_philo *philo);
 void    philo_thinking(t_philo *philo);
 
 long	get_time_ms();
-
 
 #endif

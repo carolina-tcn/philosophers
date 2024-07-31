@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:53:25 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/31 16:49:55 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:10:52 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,46 @@ void	write_action(t_philo *philo, char *str, long action_time)
 void    philo_eating(t_philo *philo)
 {
 	//Coger un tenedor primero (mutex lock). Si es par intentar coger el de la derecha y si es impar la izquierda
-	
-	//write_action(philo, "has taken a fork");
+		
 	//Intentar coger el segundo tenedor. al reves del primero
 	
-	//write_action(philo, "has taken a fork");
-
-	
 	//EMPIEZA LA ACCION GUARDAR TIEMPO BLABLA Y Guardar el last_meal
-	
-	//write_action(philo, "is eating");
 	//Esperar el tiempo de comer
-	
 	//Soltar los dos tenedores con unlock
+	//salir
 	
-	//Salir
+	//PROBLEMA!!!si % 2!= 0 && numero de filos impares -> el 1 y N no pueden coger forks a la vez
+	long action_time;
+
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->r_fork);
+		action_time = get_time_ms();
+		write_action(philo, "has taken a fork", action_time);
+		pthread_mutex_lock(philo->l_fork);
+		action_time = get_time_ms();
+		write_action(philo, "has taken a fork", action_time);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->l_fork);
+		action_time = get_time_ms();
+		write_action(philo, "has taken a fork", action_time);
+		pthread_mutex_lock(&philo->r_fork);
+		action_time = get_time_ms();
+		write_action(philo, "has taken a fork", action_time);
+	}
+	action_time = get_time_ms();
+	write_action(philo, "is eating", action_time);
+	while (1)
+	{
+		if ((get_time_ms() - action_time) > philo->time_to_eat)
+			break ;
+		usleep(100);//esto pa que no se vuelva fast and furious
+	}
+	philo->last_meal = (get_time_ms() - action_time);
+	pthread_mutex_unlock(&philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
 }
 
 void    philo_sleeping(t_philo *philo)

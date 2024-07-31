@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:33:16 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/31 14:13:23 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:11:23 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,3 +53,12 @@ int	main(int argc, char **argv)
 	//clear_ft
 	return (EXIT_SUCCESS);
 }
+
+/*
+TODO
+- OPTIMIZAR F(X) DE GET TIME
+- MONITOREAR
+- TENER EN CUENTA QUE EL TOT DE MENUS NO SE HAYA COMMPLETADO
+- QUE HACER SI SON LOS FILOS IMPARES CON EL 1 Y EL N
+- LIMPIAR TODO, LIBERAR TODO 
+*/
