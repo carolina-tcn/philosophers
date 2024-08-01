@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:23:31 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/31 18:09:19 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:08:39 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ typedef struct s_philo
 	long				time_to_sleep;
 	long				*start_time;
 	int					*dead;
-	//struct s_table	*table;
 	pthread_mutex_t		r_fork;
 	pthread_mutex_t		*l_fork;
-	pthread_mutex_t	*write_lock;
-	pthread_mutex_t	*dead_lock;
-	pthread_mutex_t	*start_lock;
+	pthread_mutex_t		*write_lock;
+	pthread_mutex_t		*dead_lock;
+	pthread_mutex_t		*start_lock;
+	pthread_mutex_t		meal_lock;
+	pthread_mutex_t		meals_eaten_lock;
 }		t_philo;
 
 typedef struct s_table
@@ -78,5 +79,8 @@ void    philo_sleeping(t_philo *philo);
 void    philo_thinking(t_philo *philo);
 
 long	get_time_ms();
+void	ft_usleep(long milliseconds);
+
+void	monitoring(t_table *table);
 
 #endif

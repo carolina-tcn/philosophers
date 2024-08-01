@@ -1,0 +1,6 @@
+*.o
+*.swp
+*.out
+.vscode/
+INFO
+philo

@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:53:25 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/31 18:10:52 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:02:55 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	write_action(t_philo *philo, char *str, long action_time)
 {
+	//flag == 1 && msg == "is deadmake"
 	pthread_mutex_lock(philo->write_lock);
 	printf("%ld %d %s \n", action_time - *philo->start_time, philo->id, str);
 	pthread_mutex_unlock(philo->write_lock);	
 }
-
 
 void    philo_eating(t_philo *philo)
 {
@@ -53,14 +53,19 @@ void    philo_eating(t_philo *philo)
 		write_action(philo, "has taken a fork", action_time);
 	}
 	action_time = get_time_ms();
+	pthread_mutex_lock(&philo->meal_lock);
+	philo->last_meal = action_time;
+	pthread_mutex_unlock(&philo->meal_lock);
+	pthread_mutex_lock(&philo->meals_eaten_lock);
+	philo->times_eat++;
+	pthread_mutex_unlock(&philo->meals_eaten_lock);
 	write_action(philo, "is eating", action_time);
 	while (1)
 	{
-		if ((get_time_ms() - action_time) > philo->time_to_eat)
+		if ((get_time_ms() - action_time) >= philo->time_to_eat)
 			break ;
 		usleep(100);//esto pa que no se vuelva fast and furious
 	}
-	philo->last_meal = (get_time_ms() - action_time);
 	pthread_mutex_unlock(&philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 }
@@ -110,7 +115,7 @@ void	*philo_routine(void *param)
 	pthread_mutex_unlock(philo->start_lock);
     //Casteo de void * a t_philo *
 	if (philo->id % 2 == 0)
-		usleep(500);//TIEMPO DE ESPERA DEL HILO (APROXIMADO)
+		usleep(100);//TIEMPO DE ESPERA DEL HILO (APROXIMADO)
 	pthread_mutex_lock(philo->dead_lock);
 	while (*philo->dead == 0)
     {

@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: carolinatacconis <carolinatacconis@stud    +#+  +:+       +#+         #
+#    By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/22 18:24:08 by ctacconi          #+#    #+#              #
-#    Updated: 2024/07/30 14:21:22 by carolinatac      ###   ########.fr        #
+#    Updated: 2024/08/01 18:20:12 by ctacconi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC = src/main.c src/check_input.c src/init.c src/threads.c src/philo_actions.c
+SRC = src/main.c src/check_input.c src/init.c src/threads.c src/philo_actions.c \
+		src/monitoring.c
 
 CC = gcc
 
@@ -30,7 +31,7 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) -o $(NAME) -fsanitize=thread
 
 clean:
 	$(RM) $(OBJ)

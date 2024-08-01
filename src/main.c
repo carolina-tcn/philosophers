@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:33:16 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/31 18:11:23 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:44:08 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 //for (at least) usec microseconds
 //initialize and destroy the mutex, and you have to do that every time you want to use a mutex (destroy it after you finished using it)
 
+void	ft_usleep(long milliseconds)
+{
+	long	start;
+
+	start = get_time_ms();
+	while (1)
+	{
+		if ((get_time_ms() - start) >= milliseconds)
+			break;
+		usleep(100);
+	}
+}
 //Function that calculate time in miliseconds
 //La función get_time_ms en C tiene como objetivo obtener el tiempo actual en milisegundos desde la época (Epoch), que es el punto de referencia temporal estándar en Unix (1 de enero de 1970, 00:00:00 UTC).
 
@@ -29,27 +41,34 @@ long	get_time_ms(void)
 	gettimeofday(&time_value, NULL);
 	return ((time_value.tv_sec * 1000L) + (time_value.tv_usec / 1000L));
 }
-
-
-
+//PHILOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO CARPETA
 int	main(int argc, char **argv)
 {
 	t_table	table;
+	int	i;
 
 	if (argc < 5 || argc > 6)
 		return (error_message(INVALID_NUM_INPUT, EXIT_FAILURE));
 	if (!check_args(argc, argv))
 		return (error_message(INVALID_INPUT, EXIT_FAILURE));	
-	//INICIALIZAR LOS DATOS (incluido philos)
 	init(&table, argv);
 	//crear hilos x cada filo
 	create_threads(&table);
 		//return error y liberarrr???
 	//pthread_create()
 	//llamar a funcion monitor que controla estado de philos
-	//monitor();
+	monitoring(&table);
 	//while join de los hilos. join is going to pause and wait here until this thread
+	i = 0;
+	while (i < table.number_of_philosophers)
+	{
+		if (pthread_join(table.philos[i].thread, NULL) != 0)
+            return (1); //Gestionar
+		printf("cierro hilo %d\n", i);
+		i++;
+	}
 	//has completed its work
+	//destroy mutexxxxxx
 	//clear_ft
 	return (EXIT_SUCCESS);
 }
@@ -57,8 +76,5 @@ int	main(int argc, char **argv)
 /*
 TODO
 - OPTIMIZAR F(X) DE GET TIME
-- MONITOREAR
-- TENER EN CUENTA QUE EL TOT DE MENUS NO SE HAYA COMMPLETADO
-- QUE HACER SI SON LOS FILOS IMPARES CON EL 1 Y EL N
 - LIMPIAR TODO, LIBERAR TODO 
 */
