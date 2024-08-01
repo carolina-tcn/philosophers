@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:24:04 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/01 18:59:55 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:10:43 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int    check_if_dead(t_table *table)
     while (i < table->number_of_philosophers)
     {
         pthread_mutex_lock(&table->meal_lock)
-        if (pthread_mutex_lock(table->philos[i].last_meal))
+        if (table->philos[i].last_meal))
         {
             pthread_mutex_lock(&table->dead_lock);
             table->dead_flag == 1;
