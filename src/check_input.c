@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:47:57 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/07/24 16:53:22 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:48:52 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	my_atoi(const char *str)
 	return ((int)res);
 }
 
+//Check that there are only digits
 int	check_digit_format(char *str)
 {
 	int	i;
@@ -58,6 +59,7 @@ int	check_digit_format(char *str)
 	return (1);
 }
 
+//Check that only digits and valid arguments
 int	check_args(int argc, char **argv)
 {
 	//SOLO digitos
@@ -72,23 +74,13 @@ int	check_args(int argc, char **argv)
 	{
 		if (!check_digit_format(argv[i]))
 			return (0);
-		num = my_atoi(argv[i]);
-		//printf("%i es el num que se obtiene de atoi\n", num); 
+		num = my_atoi(argv[i]); 
 		if (i == 1 && (num < 1 || num > MAX_PHILOS))
-		{
-			//printf("entra en el segundo if\n");
 			return (0);
-		}
 		if (i == 5 && (num < 1 || num == -1 ))
-		{
-			//printf("entra en el segundo if\n");
 			return (0);
-		}
 		if ((i >= 2 && i <= 4) && (num < 60 || num == -1))
-		{
-			//printf("entra en el tercer if\n");
 			return (0);
-		}
 		i++;
 	}
 	return (1);

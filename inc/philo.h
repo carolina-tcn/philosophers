@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:23:31 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 16:20:14 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:38:09 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h> //printf
 # include <unistd.h> //write, read, usleep
 # include <stdlib.h> //malloc, EXIT_FAILURE, free
-# include <limits.h> //MAX, MIN
+# include <limits.h> //MAX_INT, MIN_INT
 # include <sys/time.h> //gettimeofday
 
 # define MAX_PHILOS	200
@@ -32,7 +32,7 @@ typedef struct s_philo
 	pthread_t			thread;
 	int					id;
 	int					times_eat;
-	long				last_meal;//time passed from last meal to die
+	long				last_meal;
 	long				time_to_die;
 	long				time_to_eat;
 	long				time_to_sleep;
@@ -60,34 +60,32 @@ typedef struct s_table
 }		t_table;
 
 //Check_input
-int	is_digit(char c);
-int	my_atoi(const char *str);
-int	check_digit_format(char *str);
-int	check_args(int argc, char **argv);
-int	error_message(char *str, int exit_num);
+int		is_digit(char c);
+int		my_atoi(const char *str);
+int		check_digit_format(char *str);
+int		check_args(int argc, char **argv);
+int		error_message(char *str, int exit_num);
 
 //Init
-void    init(t_table *table, char **argv);
+void	init(t_table *table, char **argv);
 
 //Threads
 void	create_threads(t_table *table);
+void	join_threads(t_table *s_table);
 
 //Actions
 void	*philo_routine(void *param);
-void    philo_eating(t_philo *philo);
-void    philo_sleeping(t_philo *philo);
-void    philo_thinking(t_philo *philo);
+void	philo_eating(t_philo *philo);
+void	philo_sleeping(t_philo *philo);
+void	philo_thinking(t_philo *philo);
 void	write_action(t_philo *philo, char *str, long action_time);
 
-//Time functions
-long	get_time_ms();
+//Utils
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+long	get_time_ms(void);
 void	ft_usleep(long milliseconds);
 
+//Monitoring
 void	monitoring(t_table *table);
-
-void	join_threads(t_table *s_table);
-
-//Utils
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/22 18:24:08 by ctacconi          #+#    #+#              #
-#    Updated: 2024/08/02 15:27:18 by ctacconi         ###   ########.fr        #
+#    Updated: 2024/08/02 18:20:35 by ctacconi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $(NAME) -fsanitize=thread
+	$(CC) $(FLAGS) $(OBJ) -o $(NAME) -fsanitize=address
 
 clean:
 	$(RM) $(OBJ)

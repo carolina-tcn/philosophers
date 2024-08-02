@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 17:31:38 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/01 18:02:18 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:54:30 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void    philos_init(t_table *table, char **argv)
         table->philos[i].time_to_die = my_atoi(argv[2]);
 	    table->philos[i].time_to_eat = my_atoi(argv[3]);
         table->philos[i].time_to_sleep = my_atoi(argv[4]);
-        table->philos[i].dead = &(table->dead_flag);
-        table->philos[i].start_time = &(table->start_time);
-        pthread_mutex_init(&(table->philos[i].r_fork), NULL);
+        table->philos[i].dead = &(table->deadq.r_fork), NULL);
         pthread_mutex_init(&(table->philos[i].meal_lock), NULL);
         if (i == 0)
             table->philos[i].l_fork = &(table->philos[table->number_of_philosophers - 1].r_fork);

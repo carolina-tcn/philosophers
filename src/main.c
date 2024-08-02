@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:33:16 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 16:31:05 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:53:51 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //RACE CONDITION can happen when 2 or more threads are trying to access and modify the same variable at the same time
 
 //initialize and destroy the mutex, and you have to do that every time you want to use a mutex (destroy it after you finished using it)
-void	destroy_mutex(t_table *table)
+void	ft_clean(t_table *table)
 {
 	int	i;
 
@@ -35,20 +35,9 @@ void	destroy_mutex(t_table *table)
 		pthread_mutex_destroy(&table->philos[i].meals_eaten_lock);
 		i++;
 	}
-}
-
-void	clear_ft(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->number_of_philosophers)
-	{
-		free(&table->philos[i]);
-		i++;
-	}
 	free(table->philos);
 }
+
 //PHILOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO CARPETA
 //SI ME PASAN UN SOLO FILO
 int	main(int argc, char **argv)
@@ -64,8 +53,7 @@ int	main(int argc, char **argv)
 		//return error y liberarrr???
 	monitoring(&table);//llamar a funcion monitor que controla estado de philos
 	join_threads(&table);//while join de los hilos. join is going to pause and wait here until this thread
-	destroy_mutex(&table);
-	clear_ft(&table);
+	ft_clean(&table);
 	return (EXIT_SUCCESS);
 }
 
