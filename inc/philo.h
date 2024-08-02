@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:23:31 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 15:35:28 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:20:14 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	error_message(char *str, int exit_num);
 void    init(t_table *table, char **argv);
 
 //Threads
-int	create_threads(t_table *table);
+void	create_threads(t_table *table);
 
 //Actions
 void	*philo_routine(void *param);
@@ -84,6 +84,8 @@ long	get_time_ms();
 void	ft_usleep(long milliseconds);
 
 void	monitoring(t_table *table);
+
+void	join_threads(t_table *s_table);
 
 //Utils
 int	ft_strncmp(const char *s1, const char *s2, size_t n);

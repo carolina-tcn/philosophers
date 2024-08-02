@@ -6,12 +6,13 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:25:14 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 15:35:31 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:32:12 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
+//function that compares the two strings s1 and s2, returns an int
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	unsigned int	i;
@@ -26,4 +27,28 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		i++;
 	}
 	return (0);
+}
+//int	usleep(useconds_t usec)-> suspends execution of the calling thread
+//for (at least) usec microseconds
+void	ft_usleep(long milliseconds)
+{
+	long	start;
+
+	start = get_time_ms();
+	while (1)
+	{
+		if ((get_time_ms() - start) >= milliseconds)
+			break;
+		usleep(100);
+	}
+}
+//Function that calculate time in miliseconds
+//La función get_time_ms en C tiene como objetivo obtener el tiempo actual en milisegundos desde la época (Epoch), que es el punto de referencia temporal estándar en Unix (1 de enero de 1970, 00:00:00 UTC).
+//Function that obtains the milliseconds elapsed since 1970-01-01
+long	get_time_ms(void)
+{
+	struct timeval	time_value;
+
+	gettimeofday(&time_value, NULL);
+	return ((time_value.tv_sec * 1000L) + (time_value.tv_usec / 1000L));
 }

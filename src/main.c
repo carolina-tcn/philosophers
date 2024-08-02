@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:33:16 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 15:13:21 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:31:05 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,62 +14,58 @@
 
 //ARREGLAR MAKEFILE
 //RACE CONDITION can happen when 2 or more threads are trying to access and modify the same variable at the same time
-//int	usleep(useconds_t usec)-> suspends execution of the calling thread
-//for (at least) usec microseconds
+
 //initialize and destroy the mutex, and you have to do that every time you want to use a mutex (destroy it after you finished using it)
-
-void	ft_usleep(long milliseconds)
+void	destroy_mutex(t_table *table)
 {
-	long	start;
+	int	i;
 
-	start = get_time_ms();
-	while (1)
+	i = 0;
+	pthread_mutex_destroy(&table->dead_lock);
+	pthread_mutex_destroy(&table->start_lock);
+	pthread_mutex_destroy(&table->write_lock);
+	while (i < table->number_of_philosophers)
 	{
-		if ((get_time_ms() - start) >= milliseconds)
-			break;
-		usleep(100);
+		pthread_mutex_destroy(&table->philos[i].r_fork);
+		pthread_mutex_destroy(table->philos[i].l_fork);
+		pthread_mutex_destroy(table->philos[i].write_lock);
+		pthread_mutex_destroy(table->philos[i].dead_lock);
+		pthread_mutex_destroy(table->philos[i].start_lock);
+		pthread_mutex_destroy(&table->philos[i].meal_lock);
+		pthread_mutex_destroy(&table->philos[i].meals_eaten_lock);
+		i++;
 	}
 }
-//Function that calculate time in miliseconds
-//La función get_time_ms en C tiene como objetivo obtener el tiempo actual en milisegundos desde la época (Epoch), que es el punto de referencia temporal estándar en Unix (1 de enero de 1970, 00:00:00 UTC).
 
-//Function that obtains the milliseconds elapsed since 1970-01-01
-long	get_time_ms(void)
+void	clear_ft(t_table *table)
 {
-	struct timeval	time_value;
+	int	i;
 
-	gettimeofday(&time_value, NULL);
-	return ((time_value.tv_sec * 1000L) + (time_value.tv_usec / 1000L));
+	i = 0;
+	while (i < table->number_of_philosophers)
+	{
+		free(&table->philos[i]);
+		i++;
+	}
+	free(table->philos);
 }
 //PHILOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO CARPETA
+//SI ME PASAN UN SOLO FILO
 int	main(int argc, char **argv)
 {
 	t_table	table;
-	int	i;
 
 	if (argc < 5 || argc > 6)
 		return (error_message(INVALID_NUM_INPUT, EXIT_FAILURE));
 	if (!check_args(argc, argv))
 		return (error_message(INVALID_INPUT, EXIT_FAILURE));	
 	init(&table, argv);
-	//crear hilos x cada filo
-	create_threads(&table);
+	create_threads(&table); //crear hilos x cada filo
 		//return error y liberarrr???
-	//pthread_create()
-	//llamar a funcion monitor que controla estado de philos
-	monitoring(&table);
-	//while join de los hilos. join is going to pause and wait here until this thread
-	i = 0;
-	while (i < table.number_of_philosophers)
-	{
-		if (pthread_join(table.philos[i].thread, NULL) != 0)
-            return (1); //Gestionar
-		printf("cierro hilo %d\n", i);
-		i++;
-	}
-	//has completed its work
-	//destroy mutexxxxxx
-	//clear_ft
+	monitoring(&table);//llamar a funcion monitor que controla estado de philos
+	join_threads(&table);//while join de los hilos. join is going to pause and wait here until this thread
+	destroy_mutex(&table);
+	clear_ft(&table);
 	return (EXIT_SUCCESS);
 }
 

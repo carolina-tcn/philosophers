@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:11:08 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 15:18:11 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:13:28 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //int pthread_create(pthread_t *restrict thread, const pthread_attr_t *restrict attr, void *(*start_routine)(void *), void *restrict arg);
 
 //Function that creats a thread per philosopher
-int	create_threads(t_table *table)
+void	create_threads(t_table *table)
 {
 	int			i;
 
@@ -39,5 +39,18 @@ int	create_threads(t_table *table)
 	}
 	//DESBLOQUEAMOS EL MUTEX DE INICIO
 	pthread_mutex_unlock(&table->start_lock);
-    return (0);
+}
+
+void	join_threads(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->number_of_philosophers)
+	{
+		if (pthread_join(table->philos[i].thread, NULL) != 0)
+            return ; //Gestionar
+		printf("cierro hilo %d\n", i);
+		i++;
+	}
 }
