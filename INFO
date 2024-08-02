@@ -1,23 +1,11 @@
 
 APRENDER LOS PPOS BASICO DE HILAR UN PROCESO. CREAR HILOS Y USAR MUTEX
 
-- 1 o mas filos en una mesa, en el centro un bol de comida
-- comen, piensan, duermen
-- si hacen una cosa, las demas no pueden
-- hay tantos tenedores como filos
-- deben usar los dos tenedores
-- cuando un filo termina de comer, deja tenedores y duerme
-- cuando despierta, piensa
-- todos los filos necesitan comer y nunca morir
-
 - number_of_philosophers (num de filos y de tenedores)
 - time_to_die (milisegundos)
 - time_to_eat (miliseg)
 - time_to_sleep (miliseg)
 - [number_of_times_each_philosopher_must_eat]
-
-- cada filo tiene asignado un numero del 1 al number of filos
-- el filo 1 y el filo number of filos se sientan al lado
 
 memset, printf, malloc, free, write,
 usleep, gettimeofday, 
@@ -29,6 +17,8 @@ pthread_mutex_destroy,
 pthread_mutex_lock,
 pthread_mutex_unlock
 
+- Initialize and destroy the mutex, you have to do that every time you want to use a mutex (destroy it after you finished using it)
+
 pthread_mutex_lock
 - bloquea el mutex, solo el hilo que ha adquirido el bloqueo puede acceder al recurso compartido
 
@@ -37,4 +27,6 @@ pthread_mutex_unlonk
 
 Para que no haya conflicto entre filosofos, primero comer impares y pares despues
 
-No puedo usar exit
+- NO puedo usar exit
+
+- RACE CONDITION can happen when 2 or more threads are trying to access and modify the same variable at the same time

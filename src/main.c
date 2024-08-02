@@ -6,16 +6,13 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:33:16 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 18:53:51 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 19:13:14 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-//ARREGLAR MAKEFILE
-//RACE CONDITION can happen when 2 or more threads are trying to access and modify the same variable at the same time
-
-//initialize and destroy the mutex, and you have to do that every time you want to use a mutex (destroy it after you finished using it)
+//Cleans at the end: destroy the mutex and free the malloc
 void	ft_clean(t_table *table)
 {
 	int	i;
@@ -38,8 +35,6 @@ void	ft_clean(t_table *table)
 	free(table->philos);
 }
 
-//PHILOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO CARPETA
-//SI ME PASAN UN SOLO FILO
 int	main(int argc, char **argv)
 {
 	t_table	table;
@@ -47,18 +42,12 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 		return (error_message(INVALID_NUM_INPUT, EXIT_FAILURE));
 	if (!check_args(argc, argv))
-		return (error_message(INVALID_INPUT, EXIT_FAILURE));	
+		return (error_message(INVALID_INPUT, EXIT_FAILURE));
 	init(&table, argv);
-	create_threads(&table); //crear hilos x cada filo
-		//return error y liberarrr???
-	monitoring(&table);//llamar a funcion monitor que controla estado de philos
-	join_threads(&table);//while join de los hilos. join is going to pause and wait here until this thread
+	create_threads(&table);
+	monitoring(&table);
+	join_threads(&table);
+	//while join de los hilos. join is going to pause and wait here until this thread
 	ft_clean(&table);
 	return (EXIT_SUCCESS);
 }
-
-/*
-TODO
-- OPTIMIZAR F(X) DE GET TIME
-- LIMPIAR TODO, LIBERAR TODO 
-*/

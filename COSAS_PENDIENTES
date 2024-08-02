@@ -1,0 +1,7 @@
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+- Arreglar Makefile
+- CARPETA LLAMADA PHILO DENTRO DE REPOSITORIO DEF
+- Caso en el que number_of_philos == 1
+- Gestionar errores, protecciones y printar mensaje
+- Optimizacion ft get_time
+- Confirmar que el programa acaba y sale con todo limpio

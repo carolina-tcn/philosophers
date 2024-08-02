@@ -6,15 +6,14 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:24:04 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 15:23:40 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 19:28:23 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-//mirar si alguno ha muerto
-
-int    check_if_dead(t_table *table)
+//Checks if the dead_flag == 1, means that a philospoher has died
+int check_if_dead(t_table *table)
 {
     int i;
 
@@ -37,7 +36,8 @@ int    check_if_dead(t_table *table)
     return (0);
 }
 
-int    check_meals(t_table *table)
+//Checks if all the philosophers has already eaten the argv(optional)
+int check_meals(t_table *table)
 {
     int i;
     int philos_full;
@@ -65,6 +65,7 @@ int    check_meals(t_table *table)
     return (0);
 }
 
+//Monitoring in a loop if the simulation has to end
 void    monitoring(t_table *table)
 {
     while (1)
