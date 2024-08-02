@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:11:08 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/01 19:09:40 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:18:11 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ int	create_threads(t_table *table)
 	}
 	//AQUI EMPIEZA EL START TIME
 	table->start_time = get_time_ms();
+	i = 0;
+	while (i < table->number_of_philosophers)
+	{
+		table->philos[i].last_meal = table->start_time;
+		i++;
+	}
 	//DESBLOQUEAMOS EL MUTEX DE INICIO
 	pthread_mutex_unlock(&table->start_lock);
     return (0);

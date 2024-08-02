@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:23:31 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/01 19:08:39 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:35:28 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,15 @@ void	*philo_routine(void *param);
 void    philo_eating(t_philo *philo);
 void    philo_sleeping(t_philo *philo);
 void    philo_thinking(t_philo *philo);
+void	write_action(t_philo *philo, char *str, long action_time);
 
+//Time functions
 long	get_time_ms();
 void	ft_usleep(long milliseconds);
 
 void	monitoring(t_table *table);
+
+//Utils
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif

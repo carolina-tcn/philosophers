@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:53:25 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/01 18:02:55 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:36:40 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	write_action(t_philo *philo, char *str, long action_time)
 {
 	//flag == 1 && msg == "is deadmake"
 	pthread_mutex_lock(philo->write_lock);
-	printf("%ld %d %s \n", action_time - *philo->start_time, philo->id, str);
+	pthread_mutex_lock(philo->dead_lock);
+	if (*philo->dead == 0 || !ft_strncmp(str, "is dead", 8))
+		printf("%ld %d %s \n", action_time - *philo->start_time, philo->id, str);
+	pthread_mutex_unlock(philo->dead_lock);
 	pthread_mutex_unlock(philo->write_lock);	
 }
 
