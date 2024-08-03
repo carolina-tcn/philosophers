@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:25:14 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 16:32:12 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/03 14:22:17 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void	ft_usleep(long milliseconds)
 long	get_time_ms(void)
 {
 	struct timeval	time_value;
+	long			current_time;
 
 	gettimeofday(&time_value, NULL);
-	return ((time_value.tv_sec * 1000L) + (time_value.tv_usec / 1000L));
+	current_time = 	(time_value.tv_sec * 1000L) + (time_value.tv_usec / 1000L);
+	return (current_time);
 }

@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:11:08 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 16:13:28 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/03 14:15:38 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,9 @@ void	join_threads(t_table *table)
 	int	i;
 
 	i = 0;
-	while (i < table->number_of_philosophers)
+	while (table->number_of_philosophers >= 0)
 	{
-		if (pthread_join(table->philos[i].thread, NULL) != 0)
-            return ; //Gestionar
-		printf("cierro hilo %d\n", i);
-		i++;
+		pthread_join(table->philos[i--].thread, NULL);
+		//printf("cierro hilo %d\n", i);
 	}
 }

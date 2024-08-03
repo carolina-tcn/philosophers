@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:53:25 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 15:36:40 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:05:52 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,24 @@ void	write_action(t_philo *philo, char *str, long action_time)
 void    philo_eating(t_philo *philo)
 {
 	//Coger un tenedor primero (mutex lock). Si es par intentar coger el de la derecha y si es impar la izquierda
-		
 	//Intentar coger el segundo tenedor. al reves del primero
 	
 	//EMPIEZA LA ACCION GUARDAR TIEMPO BLABLA Y Guardar el last_meal
 	//Esperar el tiempo de comer
 	//Soltar los dos tenedores con unlock
 	//salir
-	
-	//PROBLEMA!!!si % 2!= 0 && numero de filos impares -> el 1 y N no pueden coger forks a la vez
 	long action_time;
 
+	if (&philo->r_fork == philo->l_fork)
+	{
+		usleep(philo->time_to_die * 1000);
+		//return ;
+		/*pthread_mutex_lock(philo->dead_lock);
+		*philo->dead = 1;
+		pthread_mutex_unlock(philo->dead_lock);
+		write_action(philo, "is dead", get_time_ms());
+		return ;*/
+	}
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->r_fork);
@@ -96,17 +103,7 @@ void    philo_thinking(t_philo *philo)
 	action_time = get_time_ms();
 	write_action(philo, "is thinking", action_time);
 }
-/*int	check_if_alive(t_philo *philo)
-{
-	pthread_mutex_lock(philo->dead_lock);
-	if (*philo->dead == 1)
-	{
-		pthread_mutex_unlock(philo->dead_lock);
-		return (0);
-	}
-	pthread_mutex_unlock(philo->dead_lock);
-	return (1);
-}*/
+
 //The new thread starts execution by invoking start_routine(); void *(*start_routine)(void *)
 void	*philo_routine(void *param)
 {

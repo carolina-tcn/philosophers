@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:24:04 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 19:36:19 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/03 14:12:10 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	check_meals(t_table *table)
 			pthread_mutex_unlock(&table->dead_lock);
 			return (1);
 		}
+	}
 	return (0);
 }
 
