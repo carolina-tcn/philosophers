@@ -6,7 +6,7 @@
 #    By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/22 18:24:08 by ctacconi          #+#    #+#              #
-#    Updated: 2024/08/07 16:20:40 by ctacconi         ###   ########.fr        #
+#    Updated: 2024/08/08 21:43:15 by carolinat        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC = src/main.c src/check_input.c src/init.c src/threads.c src/philo_actions.c 
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -pthread -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -pthread
 
 HEAD = inc/philo.h
 
