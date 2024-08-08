@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:47:57 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 18:48:52 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:54:08 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	error_message(char *str, int exit_num)
 {
 	printf("%s", str);
-    return (exit_num);	
+	return (exit_num);
 }
 
 int	is_digit(char c)
@@ -62,10 +62,6 @@ int	check_digit_format(char *str)
 //Check that only digits and valid arguments
 int	check_args(int argc, char **argv)
 {
-	//SOLO digitos
-	//los philos argv[1] no pueden ser mas de 200
-	//argv[2], argv[3] y argv[4] mas de 60 max, int
-	//el argv[opc] > 1
 	int	i;
 	int	num;
 
@@ -74,10 +70,10 @@ int	check_args(int argc, char **argv)
 	{
 		if (!check_digit_format(argv[i]))
 			return (0);
-		num = my_atoi(argv[i]); 
+		num = my_atoi(argv[i]);
 		if (i == 1 && (num < 1 || num > MAX_PHILOS))
 			return (0);
-		if (i == 5 && (num < 1 || num == -1 ))
+		if (i == 5 && (num < 1 || num == -1))
 			return (0);
 		if ((i >= 2 && i <= 4) && (num < 60 || num == -1))
 			return (0);

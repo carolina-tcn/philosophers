@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:23:31 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 18:38:09 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:39:49 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 [number_of_times_each_philo_must_eat]\n"
 # define INVALID_INPUT "Invalid arguments\n"
 # define ALLOC_ERROR "Allocation error\n"
+# define THREADS_ERROR "Error creating a thread\n"
 
 typedef struct s_philo
 {
@@ -67,10 +68,10 @@ int		check_args(int argc, char **argv);
 int		error_message(char *str, int exit_num);
 
 //Init
-void	init(t_table *table, char **argv);
+int		init(t_table *table, char **argv);
 
 //Threads
-void	create_threads(t_table *table);
+int		create_threads(t_table *table);
 void	join_threads(t_table *s_table);
 
 //Actions
@@ -79,6 +80,9 @@ void	philo_eating(t_philo *philo);
 void	philo_sleeping(t_philo *philo);
 void	philo_thinking(t_philo *philo);
 void	write_action(t_philo *philo, char *str, long action_time);
+void	take_l_fork(t_philo *philo);
+void	take_r_fork(t_philo *philo);
+void	eating_action_time(t_philo *philo);
 
 //Utils
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

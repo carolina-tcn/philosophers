@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:33:16 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/02 19:13:14 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:47:47 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_clean(t_table *table)
 	while (i < table->number_of_philosophers)
 	{
 		pthread_mutex_destroy(&table->philos[i].r_fork);
-		pthread_mutex_destroy(table->philos[i].l_fork);
+		if (table->philos[i].l_fork)
+			pthread_mutex_destroy(table->philos[i].l_fork);
 		pthread_mutex_destroy(table->philos[i].write_lock);
 		pthread_mutex_destroy(table->philos[i].dead_lock);
 		pthread_mutex_destroy(table->philos[i].start_lock);
@@ -43,11 +44,16 @@ int	main(int argc, char **argv)
 		return (error_message(INVALID_NUM_INPUT, EXIT_FAILURE));
 	if (!check_args(argc, argv))
 		return (error_message(INVALID_INPUT, EXIT_FAILURE));
-	init(&table, argv);
-	create_threads(&table);
+	if (!init(&table, argv))
+		return (error_message(ALLOC_ERROR, EXIT_FAILURE));
+	if (!create_threads(&table))
+	{
+		join_threads(&table);
+		ft_clean(&table);
+		return (error_message(THREADS_ERROR, EXIT_FAILURE));
+	}
 	monitoring(&table);
 	join_threads(&table);
-	//while join de los hilos. join is going to pause and wait here until this thread
 	ft_clean(&table);
 	return (EXIT_SUCCESS);
 }

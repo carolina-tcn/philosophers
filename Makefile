@@ -6,18 +6,18 @@
 #    By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/22 18:24:08 by ctacconi          #+#    #+#              #
-#    Updated: 2024/08/03 14:14:58 by ctacconi         ###   ########.fr        #
+#    Updated: 2024/08/07 16:20:40 by ctacconi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 SRC = src/main.c src/check_input.c src/init.c src/threads.c src/philo_actions.c \
-		src/monitoring.c src/utils.c
+		src/monitoring.c src/utils.c src/philo_actions_utils.c
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -pthread -g
+FLAGS = -Wall -Wextra -Werror -pthread -fsanitize=address
 
 HEAD = inc/philo.h
 
@@ -25,13 +25,13 @@ OBJ = $(SRC:.c=.o)
 
 RM = rm -f
 
-%o: %.c Makefile $(HEAD)
+%.o: %.c Makefile $(HEAD)
 	$(CC) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $(NAME) -fsanitize=address
+	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 
 clean:
 	$(RM) $(OBJ)

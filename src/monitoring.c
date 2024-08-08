@@ -6,7 +6,7 @@
 /*   By: ctacconi <ctacconi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:24:04 by ctacconi          #+#    #+#             */
-/*   Updated: 2024/08/03 14:12:10 by ctacconi         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:13:23 by ctacconi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 //Checks if the dead_flag == 1, means that a philospoher has died
 int	check_if_dead(t_table *table)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < table->number_of_philosophers)
 	{
- 		pthread_mutex_lock(&table->philos[i].meal_lock);
-		if (get_time_ms() - table->philos[i].last_meal >= table->philos[i].time_to_die)
+		pthread_mutex_lock(&table->philos[i].meal_lock);
+		if (get_time_ms() - table->philos[i].last_meal > table->philos[i]
+			.time_to_die)
 		{
 			pthread_mutex_unlock(&table->philos[i].meal_lock);
 			pthread_mutex_lock(&table->dead_lock);
@@ -29,9 +30,10 @@ int	check_if_dead(t_table *table)
 			pthread_mutex_unlock(&table->dead_lock);
 			write_action(&table->philos[i], "is dead", get_time_ms());
 			return (1);
+			break ;
 		}
 		pthread_mutex_unlock(&table->philos[i].meal_lock);
-		i++;    
+		i++;
 	}
 	return (0);
 }
@@ -39,8 +41,8 @@ int	check_if_dead(t_table *table)
 //Checks if all the philosophers has already eaten the argv(optional)
 int	check_meals(t_table *table)
 {
-	int i;
-	int philos_full;
+	int	i;
+	int	philos_full;
 
 	if (table->num_of_times_each_philo_must_eat != -1)
 	{
@@ -49,7 +51,8 @@ int	check_meals(t_table *table)
 		while (i < table->number_of_philosophers)
 		{
 			pthread_mutex_lock(&table->philos[i].meals_eaten_lock);
-			if (table->philos[i].times_eat == table->num_of_times_each_philo_must_eat)
+			if (table->philos[i].times_eat >= table
+				->num_of_times_each_philo_must_eat)
 				philos_full++;
 			pthread_mutex_unlock(&table->philos[i].meals_eaten_lock);
 			i++;
@@ -70,8 +73,16 @@ void	monitoring(t_table *table)
 {
 	while (1)
 	{
-		if (check_meals(table) || check_if_dead(table))
-			return ;
-		usleep(100);
+		check_if_dead(table);
+		if (table->num_of_times_each_philo_must_eat != -1)
+			check_meals(table);
+		pthread_mutex_lock(&table->dead_lock);
+		if (table->dead_flag == 1)
+		{
+			pthread_mutex_unlock(&table->dead_lock);
+			break ;
+		}
+		pthread_mutex_unlock(&table->dead_lock);
+		usleep(200);
 	}
 }
